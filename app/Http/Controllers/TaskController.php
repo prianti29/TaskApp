@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\TaskStatus;
 use App\Models\task;
 use Illuminate\Http\Request;
+
 class TaskController extends Controller
 {
     /**
@@ -25,7 +26,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $data["task_status"]= TaskStatus::asSelectArray();
+        $data["task_status"] = TaskStatus::asSelectArray();
         // [
         //     asSlectArray value tule ane
         //     'value' => 'description'
@@ -34,7 +35,24 @@ class TaskController extends Controller
         //     array te jokhon pay
         //     'key' => 'value'
         // ]
-        return view("tasks.create",$data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return view("tasks.create", $data);
     }
     /**
      * Store a newly created resource in storage.
