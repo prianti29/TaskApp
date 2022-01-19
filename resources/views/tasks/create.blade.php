@@ -28,16 +28,26 @@
             <input type="date" name="deadline" value="{{ old("deadline") }}" class="form-control">
         </div>
     </div>
-    {{-- Status --}}
+    {{-- Category --}}
     <div class="form-group">
         <label class="control-label col-sm-2">Task Status:</label>
         <div class="col-sm-10">
             <select name="satus" class="form-control">
-               @foreach ($task_status as $x=> $status)
-               <option value="{{ $x }}">{{$status}}</option>
+                @foreach ($task_status as $x=> $status)
+                <option value="{{ $x }}">{{$status}}</option>
 
-                   
-               @endforeach
+
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">Category:</label>
+        <div class="col-sm-10">
+            <select name="category_id" class="form-control">
+                @foreach ($categories_list as $item)
+                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
             </select>
         </div>
     </div>

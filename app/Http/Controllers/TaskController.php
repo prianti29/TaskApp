@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TaskStatus;
+use App\Models\category;
 use App\Models\task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -27,6 +29,7 @@ class TaskController extends Controller
     public function create()
     {
         $data["task_status"] = TaskStatus::asSelectArray();
+        $data["categories_list"] = category::where('created_by', Auth::id())->get();
         // [
         //     asSlectArray value tule ane
         //     'value' => 'description'
@@ -35,22 +38,6 @@ class TaskController extends Controller
         //     array te jokhon pay
         //     'key' => 'value'
         // ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         return view("tasks.create", $data);
     }
