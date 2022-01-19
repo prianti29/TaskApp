@@ -4,7 +4,7 @@
 <h3>Add new Task</h3>
 <hr>
 
-<form class="form-horizontal" action="{{ url('/categories') }}" method="POST">
+<form class="form-horizontal" action="{{ url('/tasks') }}" method="POST">
     @csrf
     <div class="form-group">
         <label class="control-label col-sm-2">Task Name:</label>
@@ -30,27 +30,32 @@
     </div>
     {{-- Category --}}
     <div class="form-group">
-        <label class="control-label col-sm-2">Task Status:</label>
-        <div class="col-sm-10">
-            <select name="satus" class="form-control">
-                @foreach ($task_status as $x=> $status)
-                <option value="{{ $x }}">{{$status}}</option>
-
-
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
         <label class="control-label col-sm-2">Category:</label>
         <div class="col-sm-10">
             <select name="category_id" class="form-control">
+                {{-- ekhane value null that mean ekhane kichu ekta dite hobe --}}
+                <option value="">--Select a Status---</option>
                 @foreach ($categories_list as $item)
-                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                <option value="{{ $item->id }}" {{old('category_id') ==$item->id ? 'selected' : ''}}>{{ $item->name }}
+                </option>
                 @endforeach
             </select>
         </div>
     </div>
+    
+    {{-- Task Status --}}
+    <div class="form-group">
+        <label class="control-label col-sm-2"> Status:</label>
+        <div class="col-sm-10">
+            <select name="status" class="form-control">
+                <option value="">--Select a Status---</option>
+                @foreach ($task_status as $x=> $status)
+                <option value="{{ $x }}" {{old('status') ==$x ? 'selected' : ''}}>{{$status}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
     {{-- Submit buttom --}}
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

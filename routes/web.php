@@ -43,5 +43,6 @@ Route::resource("/categories", CategoryController::class)->middleware(['auth']);
 //FOR Task
 Route::get('/tasks', [TaskController::class, 'index'])->middleware(['auth']);
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware(['auth']);
+Route::post('/tasks', [TaskController::class, 'store'])->middleware(['auth']);
 
 require __DIR__ . '/auth.php';

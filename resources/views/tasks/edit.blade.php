@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('contents')
 
-<h3>Edit Category</h3>
+<h3>Edit Tasks</h3>
 <hr>
 
-<form class="form-horizontal" action="{{ url("/categories/$category->id") }}" method="POST">
+<form class="form-horizontal" action="{{ url("/tasks/$task->id") }}" method="POST">
     {{-- put uses for  update  --}}
     @method("put");
     @csrf
     <div class="form-group">
-        <label class="control-label col-sm-2">Category Name:</label>
+        <label class="control-label col-sm-2">Task Name:</label>
         <div class="col-sm-10">
-            <input type="text" name="category_name" class="form-control" value="{{ $category->name }}"
-                placeholder="Enter Category Name">
+            <input type="text" name="name" class="form-control" value="{{ $task->name }}"
+>
             {{-- value="{{old('category_name')}}" uses for jate input field besi thakleo validation er somoy abar sob
             field empty na hoye jay --}}
         </div>

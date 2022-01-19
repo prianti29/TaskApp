@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TaskStatus;
+use App\Http\Requests\TaskRequest;
 use App\Models\category;
 use App\Models\task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class TaskController extends Controller
 {
@@ -17,7 +19,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $data["tasks"] = task::get();
+        $data["tasks"] = task::where('created_by',Auth::id())->get();
         return view("tasks.index", $data);
     }
 
@@ -47,9 +49,18 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        //
+        $task = new Task();
+        $task->name = $request->name;
+        $task->category_id = $request->category_id;
+        $task->details = $request->details;
+        $task->deadline = $request->deadline;
+        $task->status = $request->status;
+        $task->created_by = Auth::id();
+        $task->save();
+        return redirect("/tasks");
+        
     }
 
     /**
@@ -71,7 +82,14 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = task::where('create_by', Auth::id())->find($id);
+        if(!$task){
+            return redirect('/task');
+        }
+        $data["task"]=$task;
+        $data["task_status"]=TaskStatus::asSelectArray();
+        $data["categories_list"]=category::where("created_by",Auth::id())->get();
+        return view("tasks.edit",$data);
     }
 
     /**

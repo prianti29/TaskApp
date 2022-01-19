@@ -19,6 +19,7 @@ final class TaskStatus extends Enum
     const Done = 2;
     const Review = 3;
 
+    //For overriding
     public static function getDescription($value): string
     {
         if ($value === self::Pending) 
