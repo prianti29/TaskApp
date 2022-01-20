@@ -19,14 +19,14 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $data["tasks"] = task::where('created_by',Auth::id())->get();
+        $data["tasks"] = task::where('created_by', Auth::id())->get();
         return view("tasks.index", $data);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function create()
     {
@@ -51,16 +51,15 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        $task = new Task();
+        $task = new task();
         $task->name = $request->name;
         $task->category_id = $request->category_id;
         $task->details = $request->details;
         $task->deadline = $request->deadline;
         $task->status = $request->status;
-        $task->created_by = Auth::id();
+        $task->created_by  = Auth::id();
         $task->save();
         return redirect("/tasks");
-        
     }
 
     /**
@@ -82,14 +81,14 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $task = task::where('create_by', Auth::id())->find($id);
-        if(!$task){
+        $task = task::where('created_by', Auth::id())->find($id);
+        if (!$task) {
             return redirect('/task');
         }
-        $data["task"]=$task;
-        $data["task_status"]=TaskStatus::asSelectArray();
-        $data["categories_list"]=category::where("created_by",Auth::id())->get();
-        return view("tasks.edit",$data);
+        $data["task"] = $task;
+        $data["task_status"] = TaskStatus::asSelectArray();
+        $data["categories_list"] = category::where("created_by", Auth::id())->get();
+        return view("tasks.edit", $data);
     }
 
     /**
@@ -101,7 +100,18 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = task::where('created_by', Auth::id())->find($id);
+        if (!$task) {
+            return redirect('/task');
+        }
+        $task->name = $request->name;
+        $task->category_id = $request->category_id;
+        $task->details = $request->details;
+        $task->deadline = $request->deadline;
+        $task->status = $request->status;
+        $task->created_by =Auth::id();
+        $task->save();
+        return redirect("/tasks");
     }
 
     /**
@@ -112,6 +122,11 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = task::where('created_by', Auth::id())->find($id);
+        if (!$task) {
+            return redirect('/tasks');
+        }
+        $task->delete();
+        return redirect('/tasks');
     }
 }

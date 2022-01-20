@@ -26,9 +26,10 @@ class TaskRequest extends FormRequest
         return [
             'name' => 'required',
             'details' => 'required',
-            'category_id' => 'required',
+            'category_id' => "required|exists:categories,id",
             'status' => 'required',
-            
+            'deadline' => "date|nullable",
+
         ];
     }
 }

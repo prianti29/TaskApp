@@ -12,7 +12,7 @@
         <th>Status</th>
         <th>Action</th>
     </tr>
- @foreach ($tasks as $item)
+    @foreach ($tasks as $item)
     <tr>
         <td>{{ $item->name }}</td>
         <td>{{ $item->details }}</td>
@@ -21,16 +21,15 @@
         {{-- <td>{{ $item->status }}</td> --}}
 
         {{-- Use for status name --}}
-        <td>{{ App\Enums\TaskStatus::getDescription($item->status); }}</td>  
+        <td>{{ App\Enums\TaskStatus::getDescription($item->status); }}</td>
         <td>
 
-            <a href="{{ url("/categories/$item->id/edit") }}" class="btn btn-warning btn-sm">Update</a>
-           
-            <form action="{{ url("/categories/$item->id") }}" method="POST"
-                onclick="return confirm('Are you sure you want to delete this item?');">
+            <a href="{{ url("/tasks/$item->id/edit") }}" class="btn btn-warning btn-sm">Update</a>
+            <form action="{{ url("/tasks/$item->id") }}" method="POST"
+                onsubmit="return confirm('Do you really want to delete this task?');">
                 @csrf
                 @method('delete')
-                <input type="submit" name="" id="" value="Delete" class="btn btn-danger btn-sm">
+                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
             </form>
         </td>
     </tr>

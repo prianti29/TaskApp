@@ -42,7 +42,18 @@ Route::resource("/categories", CategoryController::class)->middleware(['auth']);
 
 //FOR Task
 Route::get('/tasks', [TaskController::class, 'index'])->middleware(['auth']);
+// create
 Route::get('/tasks/create', [TaskController::class, 'create'])->middleware(['auth']);
+//  store
 Route::post('/tasks', [TaskController::class, 'store'])->middleware(['auth']);
+
+// edit
+Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->middleware(['auth']);
+
+//undate
+Route::put ('/tasks/{id}', [TaskController::class, 'update'])->middleware(['auth']);
+
+//delete
+Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->middleware(['auth']);
 
 require __DIR__ . '/auth.php';
